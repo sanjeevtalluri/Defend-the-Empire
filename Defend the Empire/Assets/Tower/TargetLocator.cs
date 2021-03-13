@@ -25,7 +25,11 @@ public class TargetLocator : MonoBehaviour
     void Update()
     {    
         FindCloserTarget();
-        AimWeapon();
+        if (target)
+        {
+            AimWeapon();
+        }
+       
     }
     void AimWeapon()
     {
