@@ -9,8 +9,10 @@ public class EnemyMover : MonoBehaviour
     [SerializeField]
     private float speed = 1f;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        FindPaths();
+        EnemyStartPosition();
         StartCoroutine(MoveToWaypoints());
     }
 
@@ -22,7 +24,8 @@ public class EnemyMover : MonoBehaviour
 
     IEnumerator MoveToWaypoints()
     {
-        foreach(Waypoint waypoint in waypoints){
+        foreach(Waypoint waypoint in waypoints)
+        {
             Vector3 startPosition = transform.position;
             Vector3 destination = waypoint.transform.position;
 
@@ -37,5 +40,21 @@ public class EnemyMover : MonoBehaviour
             }
             
         }
+        gameObject.SetActive(false);
+    }
+    void FindPaths()
+    {
+        waypoints.Clear();
+
+        GameObject parent = GameObject.FindGameObjectWithTag("Path");
+        foreach(Transform child in parent.transform)
+        {
+            waypoints.Add(child.GetComponent<Waypoint>());
+        }
+    }
+
+    void EnemyStartPosition()
+    {
+        transform.position = waypoints[0].transform.position;
     }
 }
