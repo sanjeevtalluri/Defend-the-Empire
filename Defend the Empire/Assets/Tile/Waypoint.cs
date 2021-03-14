@@ -7,7 +7,7 @@ public class Waypoint : MonoBehaviour
     [SerializeField]
     bool isPlaceable;
     [SerializeField]
-    private GameObject tankPrefab;
+    private Tower towerPrefab;
     // Start is called before the first frame update
 
     public bool IsPlaceable
@@ -33,9 +33,10 @@ public class Waypoint : MonoBehaviour
     {
         if (isPlaceable)
         {
-            Instantiate(tankPrefab, transform.position, Quaternion.identity);
+            bool isIntialized = towerPrefab.IntializeTower(towerPrefab, transform.position);
+            //Instantiate(tankPrefab, transform.position, Quaternion.identity);
             Debug.Log(transform.name);
-            isPlaceable = false;
+            isPlaceable = !isIntialized;
         }
         
     }
